@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Games</string>
+    <string name="name_2048">2048</string>
+    <string name="name_peg">Peg</string>
+    <string name="name_help">Help</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
