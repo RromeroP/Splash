@@ -34,10 +34,11 @@ public class Menu extends AppCompatActivity {
         View moon = findViewById(R.id.bottomImage);
 
         Animation rotate = AnimationUtils.loadAnimation(this, R.anim.infinite_rotation);
+        Animation rotate2 = AnimationUtils.loadAnimation(this, R.anim.infinite_rotation2);
 
         logo1.startAnimation(rotate);
         logo2.startAnimation(rotate);
-        moon.startAnimation(rotate);
+        moon.startAnimation(rotate2);
 
         getSupportActionBar().hide();
     }
