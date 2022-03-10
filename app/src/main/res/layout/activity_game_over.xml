@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/gameOverTitle"
+            android:id="@+id/detailedUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GAME OVER"
@@ -42,7 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameOverTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/detailedUsername" />
 
         <TextView
             android:id="@+id/movesGameOver"

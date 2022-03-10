@@ -1,6 +1,7 @@
 package com.example.splash;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,12 +61,14 @@ public class ScoresAdapter extends RecyclerView.Adapter<ScoresAdapter.ViewHolder
         }
 
         @Override
-        public void onClick(View view) {/*
-            Sport currentSport = mSportsData.get(getAdapterPosition());
-            Intent detailIntent = new Intent(mContext, DetailActivity.class);
-            detailIntent.putExtra("title", currentSport.getTitle());
-            detailIntent.putExtra("image_resource", currentSport.getImageResource());
-            mContext.startActivity(detailIntent);*/
+        public void onClick(View view) {
+            ShowScores.UserScore currentScore = userScores.get(getAdapterPosition());
+            Intent intent= new Intent(context, DetailedScore.class);
+            intent.putExtra("username", currentScore.getUsername());
+            intent.putExtra("score", currentScore.getScore());
+            intent.putExtra("moves", currentScore.getMoves());
+            intent.putExtra("time", currentScore.getTime());
+            context.startActivity(intent);
         }
     }
 }

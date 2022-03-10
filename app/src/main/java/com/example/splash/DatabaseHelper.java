@@ -146,18 +146,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAll2048() {
+    public Cursor getAll2048(String orderBy, String asc_desc) {
         String selectQuery = "SELECT * " +
                 "FROM " + TABLE_2048 +
-                " ORDER BY " + SCORE_2048 + " DESC";
+                " ORDER BY " + orderBy + asc_desc;
 
         return database.rawQuery(selectQuery, null);
     }
 
-    public Cursor getAllPeg() {
+    public Cursor getAllPeg(String orderBy, String asc_desc) {
         String selectQuery = "SELECT * " +
                 "FROM " + PEG_TABLE +
-                " ORDER BY " + PEG_SCORE + " DESC";
+                " ORDER BY " + orderBy + asc_desc;
 
         return database.rawQuery(selectQuery, null);
     }

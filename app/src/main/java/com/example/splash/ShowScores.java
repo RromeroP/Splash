@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -13,6 +14,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +25,16 @@ import java.util.Collections;
 
 public class ShowScores extends AppCompatActivity {
     String username;
-    Intent intent;
 
+    String spinSelected;
+    boolean asc_desc = true;
     private DatabaseHelper dbHelper;
 
     private RecyclerView RecyclerView;
     private ArrayList<UserScore> userScores;
     private ScoresAdapter Adapter;
+
+    private Spinner spin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,7 @@ public class ShowScores extends AppCompatActivity {
         Adapter = new ScoresAdapter(this, userScores);
         RecyclerView.setAdapter(Adapter);
 
-        initializeData();
+        initializeData("score", " DESC");
 
         int swipeDirs = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
 
@@ -81,11 +88,35 @@ public class ShowScores extends AppCompatActivity {
             }
         });
 
+        spin = findViewById(R.id.spinnerView);
+        spinner(this, spin);
+
         helper.attachToRecyclerView(RecyclerView);
 
     }
 
-    private void initializeData() {
+    public void spinner(Context context, Spinner spinner) {
+
+        String[] country = {"username", "score"};
+
+        ArrayAdapter mAdapter = new ArrayAdapter(this, R.layout.spinner_item, country);
+
+        spinner.setAdapter(mAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                spinSelected = spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void initializeData(String orderBy, String asc_desc) {
         Cursor cursor;
 
         if (getIntent().getExtras().getString("game").equals("peg")) {
@@ -93,9 +124,9 @@ public class ShowScores extends AppCompatActivity {
             logo.setText("PEG");
             logo.setBackgroundResource(R.drawable.peg_bg);
 
-            cursor = dbHelper.getAllPeg();
+            cursor = dbHelper.getAllPeg(orderBy, asc_desc);
         } else {
-            cursor = dbHelper.getAll2048();
+            cursor = dbHelper.getAll2048(orderBy, asc_desc);
         }
 
         // Clear the existing data (to avoid duplication).
@@ -119,8 +150,29 @@ public class ShowScores extends AppCompatActivity {
             }
         }
 
+        cursor.close();
         // Notify the adapter of the change.
         Adapter.notifyDataSetChanged();
+    }
+
+    public void orderByName(View view) {
+        if (asc_desc) {
+            initializeData("username", " ASC");
+            asc_desc = false;
+        } else {
+            initializeData("username", " DESC");
+            asc_desc = true;
+        }
+    }
+
+    public void orderByScore(View view) {
+        if (asc_desc) {
+            initializeData("score", " ASC");
+            asc_desc = false;
+        } else {
+            initializeData("score", " DESC");
+            asc_desc = true;
+        }
     }
 
     public static class UserScore {

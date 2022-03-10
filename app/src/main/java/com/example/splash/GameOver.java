@@ -30,7 +30,7 @@ public class GameOver extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        TextView title = findViewById(R.id.gameOverTitle);
+        TextView title = findViewById(R.id.detailedUsername);
         TextView scoreText = findViewById(R.id.scoreGameOver);
         TextView moveText = findViewById(R.id.movesGameOver);
         TextView timeText = findViewById(R.id.timeGameOver);

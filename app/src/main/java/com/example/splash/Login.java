@@ -56,4 +56,9 @@ public class Login extends AppCompatActivity {
         Intent myIntent = new Intent(this, SignUp.class);
         startActivity(myIntent);
     }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
+    }
 }
