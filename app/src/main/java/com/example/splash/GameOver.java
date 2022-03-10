@@ -1,6 +1,8 @@
 package com.example.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -11,7 +13,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class GameOver extends AppCompatActivity {
-
+    String username;
+    Intent intent;
     private DatabaseHelper dbHelper;
 
     @Override
@@ -39,10 +42,10 @@ public class GameOver extends AppCompatActivity {
         int moves = getIntent().getExtras().getInt("moves");
         String game = getIntent().getExtras().getString("game");
         double bonus = getIntent().getExtras().getDouble("bonus");
-        String username = getIntent().getExtras().getString("username");
+        username = getIntent().getExtras().getString("username");
         long ms = getIntent().getExtras().getLong("ms");
 
-        String time = String.format(Locale.ENGLISH, "TIME: %02d:%02d",
+        String time = String.format(Locale.ENGLISH, "%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(ms),
                 TimeUnit.MILLISECONDS.toSeconds(ms) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(ms)));
@@ -56,13 +59,27 @@ public class GameOver extends AppCompatActivity {
         scoreText.setText("SCORE: " + final_score);
         moveText.setText("MOVES: " + moves);
         title.setText(getIntent().getExtras().getString("title"));
-        timeText.setText(time);
+        timeText.setText("TIME: " + time);
         if (game.equals("2048")) {
-            dbHelper.insertData2048(username, String.valueOf(final_score), String.valueOf(moves), time);
+            dbHelper.insertData2048(username, final_score, String.valueOf(moves), time);
         } else if (game.equals("peg")) {
-            dbHelper.insertDataPeg(username, String.valueOf(final_score), String.valueOf(moves), time);
+            dbHelper.insertDataPeg(username, final_score, String.valueOf(moves), time);
         }
 
         getWindow().setBackgroundDrawableResource(R.drawable.transparent_bg);
+    }
+
+    public void goMenu(View view) {
+        intent = new Intent(getApplicationContext(), Menu.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void goScore(View view) {
+        /*
+        intent = new Intent(getApplicationContext(), Score.class);
+        intent.putExtra("username", username);
+        startActivity(intent);*/
+
     }
 }

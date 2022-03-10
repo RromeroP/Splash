@@ -2,7 +2,6 @@ package com.example.splash;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -23,11 +22,10 @@ import java.util.Random;
 
 public class a_2048 extends AppCompatActivity {
     static String username;
+    private DatabaseHelper dbHelper;
 
     private GestureDetectorCompat mDetector;
 
-    static SharedPreferences pref;
-    static SharedPreferences.Editor editor;
     static int SIZE = 4;
 
     static int moves_value = 1;
@@ -66,11 +64,10 @@ public class a_2048 extends AppCompatActivity {
 
         setContentView(R.layout.activity_a2048);
 
-        username = getIntent().getExtras().getString("username");
-        context = getApplicationContext();
+        dbHelper = new DatabaseHelper(this);
 
-        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        editor = pref.edit();
+        username = getIntent().getExtras().getString("username");
+        context = this;
 
         pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         spawn = AnimationUtils.loadAnimation(this, R.anim.spawn);
@@ -79,7 +76,7 @@ public class a_2048 extends AppCompatActivity {
         score = findViewById(R.id.score_value);
         move = findViewById(R.id.move_counter);
 
-        best_value = pref.getInt("best_score", 0);
+        best_value = Integer.parseInt(dbHelper.getBest2048(username));
         best_score.setText(String.valueOf(best_value));
 
         cells[0][0] = findViewById(R.id.cell_0);
@@ -207,7 +204,8 @@ public class a_2048 extends AppCompatActivity {
                 int r_2 = r.nextInt(SIZE);
 
                 if (cells[r_1][r_2].getText() == "") {
-                    int r_3 = r.nextInt(2) + 1;
+                    //int r_3 = r.nextInt(2) + 1;
+                    int r_3 = r.nextInt(2) + 8;
 
                     cells[r_1][r_2].setText(cell_values[r_3]);
                     cells[r_1][r_2].setBackgroundResource(cell_bg[r_3]);
@@ -308,9 +306,6 @@ public class a_2048 extends AppCompatActivity {
                     //Check if it has to update de best score
                     if (score_value > best_value) {
                         best_value = score_value;
-
-                        editor.putInt("best_score", score_value);
-                        editor.commit();
 
                         best_score.setText(String.valueOf(best_value));
                     }

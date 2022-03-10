@@ -17,6 +17,9 @@ public class MainPeg extends AppCompatActivity {
 
     GridView gridView;
     TextView move_counter;
+    TextView score;
+
+    private DatabaseHelper dbHelper;
 
     int[][] grid1 = {
             {0, 0, 2, 2, 2, 0, 0},
@@ -88,10 +91,15 @@ public class MainPeg extends AppCompatActivity {
 
         setContentView(R.layout.activity_peg);
 
+        dbHelper = new DatabaseHelper(this);
+
         username = getIntent().getExtras().getString("username");
 
         gridView = findViewById(R.id.gridView);
         move_counter = findViewById(R.id.move_counter);
+        score = findViewById(R.id.score_value);
+
+        score.setText(dbHelper.getBestPeg(username));
 
         ArrayList<CellModel> cellModelArrayList = new ArrayList<CellModel>();
 

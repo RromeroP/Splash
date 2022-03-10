@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String PEG_CREATE = "CREATE TABLE IF NOT EXISTS " + PEG_TABLE + "(" +
             PEG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             PEG_USER + " TEXT," +
-            PEG_SCORE + " TEXT," +
+            PEG_SCORE + " INTEGER," +
             PEG_MOVES + " TEXT," +
             PEG_TIME + " TEXT)";
 
@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String CREATE_2048 = "CREATE TABLE IF NOT EXISTS " + TABLE_2048 + "(" +
             ID_2048 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             USER_2048 + " TEXT," +
-            SCORE_2048 + " TEXT," +
+            SCORE_2048 + " INTEGER," +
             MOVES_2048 + " TEXT," +
             TIME_2048 + " TEXT)";
 
@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertDataPeg(String newUser, String newScore, String newMoves, String newTime) {
+    public void insertDataPeg(String newUser, int newScore, String newMoves, String newTime) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertData2048(String newUser, String newScore, String newMoves, String newTime) {
+    public void insertData2048(String newUser, int newScore, String newMoves, String newTime) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -105,6 +105,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_2048, null, values);
         db.close();
+    }
+
+    public String getBestPeg(String username) {
+        String selectQuery = "SELECT " + PEG_SCORE +
+                " FROM "  + PEG_TABLE +
+                " WHERE " + PEG_USER + " = '" + username +
+                "' ORDER BY " + PEG_SCORE + " DESC";
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            String score = cursor.getString(0);
+            cursor.close();
+            return score;
+        } else {
+            cursor.close();
+            return "0";
+        }
+    }
+
+    public String getBest2048(String username) {
+        String selectQuery = "SELECT " + SCORE_2048 +
+                " FROM "  + TABLE_2048 +
+                " WHERE " + USER_2048 + " = '" + username +
+                "' ORDER BY " + SCORE_2048 + " DESC";
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            String score = cursor.getString(0);
+            cursor.close();
+            return score;
+        } else {
+            cursor.close();
+            return "0";
+        }
     }
 
     public void spinner(Context context, Spinner spinner) {
