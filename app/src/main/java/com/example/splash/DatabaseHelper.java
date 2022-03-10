@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -109,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public String getBestPeg(String username) {
         String selectQuery = "SELECT " + PEG_SCORE +
-                " FROM "  + PEG_TABLE +
+                " FROM " + PEG_TABLE +
                 " WHERE " + PEG_USER + " = '" + username +
                 "' ORDER BY " + PEG_SCORE + " DESC";
 
@@ -128,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public String getBest2048(String username) {
         String selectQuery = "SELECT " + SCORE_2048 +
-                " FROM "  + TABLE_2048 +
+                " FROM " + TABLE_2048 +
                 " WHERE " + USER_2048 + " = '" + username +
                 "' ORDER BY " + SCORE_2048 + " DESC";
 
@@ -145,71 +146,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void spinner(Context context, Spinner spinner) {
+    public Cursor getAll2048() {
+        String selectQuery = "SELECT * " +
+                "FROM " + TABLE_2048 +
+                " ORDER BY " + SCORE_2048 + " DESC";
 
-
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(context,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-
-        spinner.setAdapter(mAdapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                selectedId = String.valueOf(id);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        return database.rawQuery(selectQuery, null);
     }
 
-    /*
-    private ArrayList<Comments> spinnerCursor() {
-        int index_id, index_name, index_text;
+    public Cursor getAllPeg() {
+        String selectQuery = "SELECT * " +
+                "FROM " + PEG_TABLE +
+                " ORDER BY " + PEG_SCORE + " DESC";
 
-        comments = new ArrayList<Comments>();
+        return database.rawQuery(selectQuery, null);
+    }
 
-        Cursor cur = database.rawQuery("SELECT * FROM " + COMMENT_TABLE, null);
-
-        if (cur.getCount() != 0) {
-            while (cur.moveToNext()) {
-                index_id = cur.getColumnIndex(COMMENT_ID);
-                index_name = cur.getColumnIndex(COMMENT_NAME);
-                index_text = cur.getColumnIndex(COMMENT_TEXT);
-                Comments comment = new Comments(cur.getString(index_id),
-                        cur.getString(index_name),
-                        cur.getString(index_text));
-
-                comments.add(comment);
-            }
+    public void deleteScore(String selectedId, String game) {
+        if (game.equals("peg")) {
+            database.delete(PEG_TABLE, PEG_ID + "=" + selectedId, null);
+        } else {
+            database.delete(TABLE_2048, ID_2048 + "=" + selectedId, null);
         }
-
-        cur.close();
-
-        return comments;
     }
 
-    public void deleteData() {
-        database.delete(COMMENT_TABLE, COMMENT_ID + "=" + selectedId, null);
-    }
-
-    public String getData() {
-
-        Cursor cursor = database.rawQuery("SELECT " + COMMENT_TEXT + " FROM " +
-                COMMENT_TABLE + " WHERE " + COMMENT_ID + "=" + selectedId, null);
-
-        cursor.moveToFirst();
-
-        String data = cursor.getString(0);
-
-        cursor.close();
-
-        return data;
-    }
-*/
 
     public boolean checkUsername(String username) {
         String selectQuery = "SELECT " + USER_NAME + "  FROM "

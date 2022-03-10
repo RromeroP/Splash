@@ -281,15 +281,10 @@ public class CellAdapter extends ArrayAdapter<CellModel> {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
                 if (grid[i][j] == 1) ones++;
-                if (i - 2 >= 0 && j - 2 >= 0 &&
-                        i + 2 < grid.length && j + 2 < grid.length) {
-                    possible_moves += checking(i, j, 1, 0) +
-                            checking(i, j, -1, 0) +
-                            checking(i, j, 0, 1) +
-                            checking(i, j, 0, -1);
-
-
-                }
+                if (i - 2 >= 0) possible_moves += checking(i, j, -1, 0);
+                if (j - 2 >= 0) possible_moves += checking(i, j, 0, -1);
+                if (i + 2 < grid.length) possible_moves += checking(i, j, 1, 0);
+                if (j + 2 < grid.length) possible_moves += checking(i, j, 0, 1);
             }
         }
 

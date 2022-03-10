@@ -123,7 +123,6 @@ public class MainPeg extends AppCompatActivity {
                 break;
         }
 
-        selectedGrid = grid1;
         gridView.setNumColumns(selectedGrid.length);
 
         for (int i = 0; i < selectedGrid.length; i++) {

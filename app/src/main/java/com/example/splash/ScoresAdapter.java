@@ -1,0 +1,71 @@
+package com.example.splash;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class ScoresAdapter extends RecyclerView.Adapter<ScoresAdapter.ViewHolder> {
+
+    private ArrayList<ShowScores.UserScore> userScores;
+    private Context context;
+
+    ScoresAdapter(Context context, ArrayList<ShowScores.UserScore> userScores) {
+        this.userScores = userScores;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public ScoresAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).
+                inflate(R.layout.list_item, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ShowScores.UserScore currentScore = userScores.get(position);
+
+        holder.bindTo(currentScore);
+    }
+
+    @Override
+    public int getItemCount() {
+        return userScores.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private TextView username;
+        private TextView score;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+
+            username = itemView.findViewById(R.id.list_username);
+            score = itemView.findViewById(R.id.list_score);
+
+            itemView.setOnClickListener(this);
+        }
+
+        void bindTo(ShowScores.UserScore currentScore){
+            username.setText(currentScore.getUsername());
+            score.setText(currentScore.getScore());
+        }
+
+        @Override
+        public void onClick(View view) {/*
+            Sport currentSport = mSportsData.get(getAdapterPosition());
+            Intent detailIntent = new Intent(mContext, DetailActivity.class);
+            detailIntent.putExtra("title", currentSport.getTitle());
+            detailIntent.putExtra("image_resource", currentSport.getImageResource());
+            mContext.startActivity(detailIntent);*/
+        }
+    }
+}

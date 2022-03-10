@@ -35,8 +35,8 @@ public class GameOver extends AppCompatActivity {
         TextView moveText = findViewById(R.id.movesGameOver);
         TextView timeText = findViewById(R.id.timeGameOver);
 
-        int minimumMoves = 50;
-        int minimumTime = 30000;
+        int minimumMoves = 300;
+        int minimumTime = 100000;
 
         long score = getIntent().getExtras().getInt("score");
         int moves = getIntent().getExtras().getInt("moves");
@@ -76,10 +76,9 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void goScore(View view) {
-        /*
-        intent = new Intent(getApplicationContext(), Score.class);
+        intent = new Intent(getApplicationContext(), Scores.class);
         intent.putExtra("username", username);
-        startActivity(intent);*/
+        startActivity(intent);
 
     }
 }

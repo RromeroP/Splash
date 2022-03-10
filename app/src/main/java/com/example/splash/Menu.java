@@ -58,7 +58,9 @@ public class Menu extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 2:
-                        System.out.println("Scores");
+                        intent = new Intent(getApplicationContext(), Scores.class);
+                        intent.putExtra("username", username);
+                        startActivity(intent);
                         break;
                     case 3:
                         System.out.println("Settings");

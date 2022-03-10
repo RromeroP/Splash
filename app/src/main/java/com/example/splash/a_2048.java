@@ -179,6 +179,7 @@ public class a_2048 extends AppCompatActivity {
             long elapsedMillis = SystemClock.elapsedRealtime() - timer.getBase();
             intent.putExtra("ms", elapsedMillis);
 
+            timer.stop();
             context.startActivity(intent);
         }
     }
@@ -204,8 +205,7 @@ public class a_2048 extends AppCompatActivity {
                 int r_2 = r.nextInt(SIZE);
 
                 if (cells[r_1][r_2].getText() == "") {
-                    //int r_3 = r.nextInt(2) + 1;
-                    int r_3 = r.nextInt(2) + 8;
+                    int r_3 = r.nextInt(2) + 1;
 
                     cells[r_1][r_2].setText(cell_values[r_3]);
                     cells[r_1][r_2].setBackgroundResource(cell_bg[r_3]);
