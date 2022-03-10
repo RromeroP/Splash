@@ -12,4 +12,14 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="border_color">#222222</color>
+    <color name="bg_color">#eeffee</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="table_bg">#807265</color>
+    <color name="main_bg">#1A1914</color>
+    <color name="cell_bg">#61574D</color>
+    <color name="cell_token">#ede0c8</color>
+    <color name="cell_selected">#f65e3b</color>
 </resources>

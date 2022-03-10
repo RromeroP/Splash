@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowInsets;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -14,6 +16,12 @@ public class QuizSplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_quiz_splash);
 
         View title1 = findViewById(R.id.title_1);
@@ -39,7 +47,7 @@ public class QuizSplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent myIntent = new Intent(QuizSplashActivity.this, Menu.class);
+                Intent myIntent = new Intent(QuizSplashActivity.this, Login.class);
                 startActivity(myIntent);
                 overridePendingTransition(0, R.anim.fade_out);
             }
@@ -50,7 +58,5 @@ public class QuizSplashActivity extends AppCompatActivity {
             }
         });
 
-
-        getSupportActionBar().hide();
     }
 }

@@ -4,6 +4,346 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1A1914"
     tools:context=".a_2048">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/score"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/score_bg"
+            app:layout_constraintBottom_toTopOf="@+id/newButton"
+            app:layout_constraintEnd_toStartOf="@id/best_score"
+            app:layout_constraintStart_toStartOf="@+id/newButton"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="SCORE"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/score_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/score_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/score_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/best_score"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="2.5dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/score_bg"
+            app:layout_constraintBottom_toTopOf="@+id/newButton"
+            app:layout_constraintEnd_toEndOf="@+id/newButton"
+            app:layout_constraintStart_toEndOf="@+id/score"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="new_game">
+
+            <TextView
+                android:id="@+id/best_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="BEST SCORE"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/best_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/best_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/best_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_2048"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/cell_2048"
+            android:gravity="center"
+            android:text="2048"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/newButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/cell_64"
+            android:gravity="center"
+            android:onClick="new_game"
+            android:paddingHorizontal="36dp"
+            android:paddingVertical="13dp"
+            android:text="NEW GAME"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_2048" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="Join the numbers and get to the 2048 tile!"
+        android:textColor="#807265"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/Table"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/Table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/table"
+        android:padding="@dimen/margin_padding"
+        app:columnCount="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment"
+        app:rowCount="4">
+
+        <TextView
+            android:id="@+id/cell_0"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_1"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_2"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_3"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_4"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_5"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_6"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_7"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_8"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_9"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_10"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_11"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_12"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_13"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_14"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cell_15"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            android:layout_margin="@dimen/margin_padding"
+            android:background="@drawable/cell_empty"
+            android:gravity="center"
+            android:textSize="@dimen/cell_text"
+            android:textStyle="bold" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <TextView
+        android:id="@+id/move_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="0 Moves"
+        android:textColor="#807265"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/Table"
+        app:layout_constraintTop_toBottomOf="@+id/Table" />
+
+    <Chronometer
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="#807265"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/Table"
+        app:layout_constraintTop_toBottomOf="@+id/Table" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

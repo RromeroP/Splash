@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        new DatabaseHelper(this);
+
         Intent myIntent = new Intent(MainActivity.this, QuizSplashActivity.class);
         startActivity(myIntent);
     }

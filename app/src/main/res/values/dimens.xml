@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cell_size">85dp</dimen>
+    <dimen name="margin_padding">6dp</dimen>
+    <dimen name="cell_radius">7dp</dimen>
+    <dimen name="cell_text">32sp</dimen>
+    <dimen name="border_width">2dp</dimen>
+    <dimen name="spacing">5dp</dimen>
+    <dimen name="peg_cell_size">50dp</dimen>
+    <dimen name="peg_size_sm">45dp</dimen>
+    <dimen name="peg_size_sm2">40dp</dimen>
+    <dimen name="circle_size">45dp</dimen>
+    <dimen name="circle_size2">40dp</dimen>
+</resources>

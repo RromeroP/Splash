@@ -9,5 +9,4 @@
     android:shadowDy="3"
     android:shadowRadius="5"
     android:textColor="@color/white"
-    android:textSize="56sp"
-    android:onClick="onClick"/>
+    android:textSize="56sp" />
